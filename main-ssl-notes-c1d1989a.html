@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>再访 · 世界杯 | 信息收藏卡</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(145deg, #fbe9d7 0%, #f3d5b5 40%, #edd1b0 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem 1.2rem;
+        }
+
+        .page-wrap {
+            max-width: 1100px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        /* 主视觉卡片 —— 暖调层次 */
+        .hero-card {
+            background: #ffffffeb;
+            backdrop-filter: blur(2px);
+            border-radius: 48px 48px 32px 32px;
+            box-shadow: 0 20px 40px -12px rgba(160, 100, 60, 0.3);
+            padding: 2.8rem 2.5rem 2.2rem;
+            margin-bottom: 2.4rem;
+            transition: all 0.2s ease;
+            border: 1px solid rgba(255, 235, 210, 0.5);
+        }
+
+        .hero-title {
+            font-size: 2.8rem;
+            font-weight: 440;
+            letter-spacing: -0.02em;
+            color: #4f3a2b;
+            line-height: 1.2;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-title span {
+            display: inline-block;
+            background: #e9d3bd;
+            padding: 0 0.4rem 0.1rem;
+            border-radius: 40px;
+            color: #3a2c1f;
+            font-weight: 470;
+        }
+
+        .hero-sub {
+            font-size: 1.2rem;
+            color: #7b5f48;
+            margin: 0.2rem 0 1.2rem;
+            border-left: 4px solid #dbb594;
+            padding-left: 1.2rem;
+            font-weight: 350;
+        }
+
+        .hero-text {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: #3f3224;
+            max-width: 700px;
+            margin-bottom: 0.4rem;
+        }
+
+        .hero-text a {
+            color: #9d6b47;
+            text-decoration: none;
+            font-weight: 450;
+            border-bottom: 1px dashed #cba37f;
+            transition: border 0.2s, background 0.2s;
+            padding: 0 0.1rem;
+        }
+
+        .hero-text a:hover {
+            border-bottom: 1px solid #7a5337;
+            background: #f1decb;
+            border-radius: 6px;
+        }
+
+        /* 卡片网格 —— 用途 + 人群 */
+        .grid-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.8rem;
+            margin-bottom: 2rem;
+        }
+
+        .info-card {
+            background: #fffffffa;
+            border-radius: 32px;
+            padding: 1.8rem 1.8rem 2rem;
+            box-shadow: 0 14px 28px -10px rgba(130, 80, 40, 0.15);
+            border: 1px solid #f4e3d2;
+            transition: transform 0.2s;
+        }
+
+        .info-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 18px 32px -12px rgba(110, 65, 30, 0.2);
+        }
+
+        .card-label {
+            display: inline-block;
+            background: #e6d0bb;
+            padding: 0.12rem 1rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            letter-spacing: 0.8px;
+            color: #3d2e1d;
+            font-weight: 400;
+            margin-bottom: 0.8rem;
+        }
+
+        .card-heading {
+            font-size: 1.6rem;
+            font-weight: 420;
+            color: #493a2a;
+            margin-bottom: 1rem;
+            letter-spacing: -0.3px;
+        }
+
+        .card-body {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: #3f3428;
+        }
+
+        .card-body p {
+            margin-bottom: 0.8rem;
+        }
+
+        .card-body p:last-child {
+            margin-bottom: 0;
+        }
+
+        .card-body a {
+            color: #9d6b47;
+            text-decoration: none;
+            font-weight: 440;
+            border-bottom: 1px solid #dbb594;
+            transition: background 0.15s;
+        }
+
+        .card-body a:hover {
+            background: #f1decd;
+            border-radius: 4px;
+        }
+
+        .tag-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem 0.5rem;
+            margin-top: 1.1rem;
+        }
+
+        .tag {
+            background: #f0e1d2;
+            padding: 0.2rem 1rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            color: #46321f;
+        }
+
+        /* 场景 + 提示卡片 (宽卡) */
+        .wide-card {
+            background: #fffffffa;
+            border-radius: 32px;
+            padding: 1.8rem 2rem 2rem;
+            margin-bottom: 1.8rem;
+            border: 1px solid #f2ddc8;
+            box-shadow: 0 12px 24px -8px rgba(150, 90, 45, 0.1);
+        }
+
+        .wide-card h3 {
+            font-size: 1.5rem;
+            font-weight: 420;
+            color: #493a29;
+            margin-bottom: 0.75rem;
+        }
+
+        .wide-card p, .faq-item {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: #3f3224;
+        }
+
+        .faq-item {
+            margin-top: 0.6rem;
+            padding: 0.5rem 0 0.5rem 1.2rem;
+            border-left: 3px solid #dbb594;
+        }
+
+        .faq-item strong {
+            font-weight: 490;
+            color: #5f4633;
+        }
+
+        .natural-link-sentence {
+            margin-top: 1.2rem;
+            font-size: 1.05rem;
+            padding: 0.5rem 0;
+            border-top: 1px solid #eddccb;
+        }
+
+        .natural-link-sentence a {
+            color: #9d6b47;
+            text-decoration: none;
+            font-weight: 450;
+            border-bottom: 1px solid #cba37f;
+            padding: 0 0.1rem;
+        }
+
+        .natural-link-sentence a:hover {
+            background: #f0ddcb;
+            border-radius: 6px;
+        }
+
+        /* 响应式 */
+        @media (max-width: 720px) {
+            body {
+                padding: 1.2rem 0.8rem;
+            }
+            .hero-card {
+                padding: 2rem 1.2rem 1.8rem;
+                border-radius: 32px;
+            }
+            .hero-title {
+                font-size: 2rem;
+            }
+            .grid-section {
+                grid-template-columns: 1fr;
+                gap: 1.2rem;
+            }
+            .info-card {
+                padding: 1.4rem;
+            }
+            .wide-card {
+                padding: 1.4rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 1.7rem;
+            }
+            .hero-sub {
+                font-size: 1rem;
+            }
+        }
+
+        footer {
+            margin-top: 1.2rem;
+            font-size: 0.85rem;
+            color: #6f5a48;
+            text-align: center;
+            opacity: 0.75;
+        }
+    </style>
+</head>
+<body>
+<div class="page-wrap">
+
+    <!-- 主视觉卡片 -->
+    <div class="hero-card">
+        <h1 class="hero-title">再访·<span>世界杯</span></h1>
+        <div class="hero-sub">收藏一处角落，等待下一声哨响。</div>
+        <div class="hero-text">
+            有时候，一个页面值得再次打开。不是因为它许诺了什么，而是因为你知道，那里存着一段还未结束的叙事。 
+            <a href="https://main-ssl-fifa2026.com">世界杯</a>就是这样的坐标——四年一次，但记忆与期待从不按赛历停摆。 
+            把链接留在书签里，不是为了立刻出发，而是为了在某个深夜或清晨，还能轻易找到那片绿茵的入口。
+        </div>
+    </div>
+
+    <!-- 用途卡片 + 适合人群 -->
+    <div class="grid-section">
+        <div class="info-card">
+            <div class="card-label">📍 用途</div>
+            <div class="card-heading">再次访问的理由</div>
+            <div class="card-body">
+                <p>页面安静地待在那里，适合赛程间隙回来翻一翻，也适合大赛之后重新浏览那些还没褪色的瞬间。收藏夹里的链接，有时比新闻更持久。</p>
+                <p>你可以把它当作一个固定据点——不需要每次搜索，不需要重新回忆域名。把<a href="https://main-ssl-fifa2026.com">世界杯</a>放在一个顺手的位置，下一次想起时，它已经在等了。</p>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <div class="card-label">👥 人群</div>
+            <div class="card-heading">谁会持续关注</div>
+            <div class="card-body">
+                <p>那些不想错过任何一条战线的人。从小组赛到淘汰赛，从老将谢幕到新星登场，总有人愿意把一届大赛拉长成一段日常。</p>
+                <p>偶尔点开，看看有没有新的视角、新的故事。不是每一条更新都轰轰烈烈，但持续的注视本身，就是球迷的仪式。</p>
+                <div class="tag-group">
+                    <span class="tag">📆 长期关注者</span>
+                    <span class="tag">⚽ 赛事收藏者</span>
+                    <span class="tag">🔖 书签整理者</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 场景 + 提示 -->
+    <div class="wide-card">
+        <h3>📌 持续关注的场景</h3>
+        <p>大赛前，你会反复核对赛程和分组；大赛中，你习惯打开同一个页面查看最新动态；大赛后，你仍然会回去翻看那些还没整理好的片段。这个页面就像一本翻旧的秩序册，边角卷起，但内容永远新鲜。</p>
+        <div class="faq-item">
+            <strong>小提示：</strong> 如果有一段时间没回来，不妨从收藏夹里把它唤出来。页面可能已经悄然更新——也许是一篇回顾，也许是一组数据，又或者只是保持安静。持续关注不一定需要理由，但一个固定的链接会让这件事变得很轻。
+        </div>
+        <div class="natural-link-sentence">
+            把 <a href="https://main-ssl-fifa2026.com">世界杯</a> 放进浏览器的书签栏，或者笔记应用的收藏夹——下次再想起时，直接就能回到这里。
+        </div>
+    </div>
+
+    <!-- 自然链接段落 (嵌入句子) -->
+    <div class="wide-card" style="margin-bottom: 0.6rem;">
+        <p style="font-size: 1rem; color: #3f3224;">
+            日常对话里很少刻意提起，但当你翻到去年同一天的笔记，或者看到某个进球集锦，会忽然想回到那个信息页面。没有比直接打开 <a href="https://main-ssl-fifa2026.com">世界杯</a> 更自然的事了——它就在那里，像一本放在茶几上的杂志，随时可以翻到上次折角的那一页。
+        </p>
+    </div>
+
+    <footer>
+        · 收藏 · 再访 · 持续 ·
+    </footer>
+
+</div>
+</body>
+</html>
